@@ -16,6 +16,8 @@ def parse_ethernet_header(hex_data):
         parse_arp_header(payload)
     elif ether_type == "0800": # IPv4
         parse_ipv4_header(payload)
+    elif ether_type == "86dd": # IPv6
+        parse_ipv6_header(payload)
     else:
         print(f"  {'Unknown EtherType:':<25} {ether_type:<20} | {int(ether_type, 16)}")
         print("  No parser available for this EtherType.")
@@ -170,3 +172,24 @@ def parse_udp_header(hex_data):
     print(f"  {'Length:':<25} {hex_data[8:12]:<20} | {length}")
     print(f"  {'Checksum:':<25} {hex_data[12:16]:<20} | {checksum}")
     print(f"  {'Payload (hex):':<25} {hex_data[16:]:<20}")
+
+def parse_ipv6_header(hex_data):
+    # TODO: Not tested yet, macOs doesnt catch the ipv6
+    version = int(hex_data[8], 16)
+    payload_length = int(hex_data[8:12], 16)
+    next_header = int(hex_data[12:14], 16)
+    hop_limit = int(hex_data[14:16], 16)
+
+    source_ipv6_hex = hex_data[16:48]
+    source_ipv6 = ":".join(source_ipv6_hex[i:i+4] for i in range(0, 32, 4))
+
+    destination_ipv6_hex = hex_data[48:80]
+    destination_ipv6 = ":".join(destination_ipv6_hex[i:i+4] for i in range(0, 32, 4))
+
+    print(f"IPv6 Header:")
+    print(f"  {'Version:':<25} {hex_data[8]:<20} | {version}")
+    print(f"  {'Payload Length:':<25} {hex_data[8:12]:<20} | {payload_length}")
+    print(f"  {'Next Header:':<25} {hex_data[12:14]:<20} | {next_header}")
+    print(f"  {'Hop Limit:':<25} {hex_data[14:16]:<20} | {hop_limit}")
+    print(f"  {'Source IP':<25} {hex_data[16:48]:<20} | {source_ipv6}")
+    print(f"  {'Destination IP:':<25} {hex_data[48:80]:<20} | {destination_ipv6}")
