@@ -94,9 +94,9 @@ def parse_ipv4_header(hex_data):
     if protocol == 1:
         parse_icmp_header(payload)
     elif protocol == 6:
-        pass
+        parse_tcp_header(payload)
     elif protocol == 17:
-        pass
+        parse_udp_header(payload)
     else:
         print(f"  {'Unknown Protocol:':<25} {protocol:<20}")
         print("  No parser available for this Protocol.")
@@ -116,4 +116,14 @@ def parse_tcp_header(hex_data):
     pass
 
 def parse_udp_header(hex_data):
-    pass
+    source_port = int(hex_data[0:4], 16)
+    destination_port = int(hex_data[4:8], 16)
+    length = int(hex_data[8:12], 16)
+    checksum = int(hex_data[12:16], 16)
+
+    print(f"UDP Header:")
+    print(f"  {'Source Port:':<25} {hex_data[0:4]:<20} | {source_port}")
+    print(f"  {'Destination Port:':<25} {hex_data[4:8]:<20} | {destination_port}")
+    print(f"  {'Length:':<25} {hex_data[8:12]:<20} | {length}")
+    print(f"  {'Checksum:':<25} {hex_data[12:16]:<20} | {checksum}")
+    print(f"  {'Payload (hex):':<25} {hex_data[16:]:<20}")
