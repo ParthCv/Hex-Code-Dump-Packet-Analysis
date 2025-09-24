@@ -88,3 +88,32 @@ def parse_ipv4_header(hex_data):
     print(f"  {'Protocol:':<25} {hex_data[18:20]:<20} | {protocol}")
     print(f"  {'Source IP:':<25} {hex_data[24:32]:<20} | {source_ip}")
     print(f"  {'Destination IP:':<25} {hex_data[32:40]:<20} | {destination_ip}")
+
+    payload = hex_data[header_length * 2:]
+
+    if protocol == 1:
+        parse_icmp_header(payload)
+    elif protocol == 6:
+        pass
+    elif protocol == 17:
+        pass
+    else:
+        print(f"  {'Unknown Protocol:':<25} {protocol:<20}")
+        print("  No parser available for this Protocol.")
+
+def parse_icmp_header(hex_data):
+    icmp_type = int(hex_data[0:2], 16)
+    icmp_code = int(hex_data[2:4], 16)
+    checksum = int(hex_data[4:8], 16)
+
+    print(f"ICMP Header:")
+    print(f"  {'Type:':<25} {hex_data[0:2]:<20} | {icmp_type}")
+    print(f"  {'Code:':<25} {hex_data[2:4]:<20} | {icmp_code}")
+    print(f"  {'Checksum:':<25} {hex_data[4:8]:<20} | {checksum}")
+    print(f"  {'Payload (hex):':<25} {hex_data[8:]:<20}")
+
+def parse_tcp_header(hex_data):
+    pass
+
+def parse_udp_header(hex_data):
+    pass
