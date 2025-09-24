@@ -113,7 +113,50 @@ def parse_icmp_header(hex_data):
     print(f"  {'Payload (hex):':<25} {hex_data[8:]:<20}")
 
 def parse_tcp_header(hex_data):
-    pass
+    source_port = int(hex_data[0:4], 16)
+    destination_port = int(hex_data[4:8], 16)
+    sequence_number = int(hex_data[8:16], 16)
+    acknowledgement_number = int(hex_data[16:24], 16)
+
+    data_offset_flags = int(hex_data[24:26], 16) * 4
+
+    flags = int(hex_data[26:28], 16)
+
+    ns_flag = (flags >> 8) & 1  # NS flag (bit 8 of flags field)
+    cwr_flag = (flags >> 7) & 1  # CWR flag
+    ece_flag = (flags >> 6) & 1  # ECE flag
+    urg_flag = (flags >> 5) & 1  # URG flag
+    ack_flag = (flags >> 4) & 1  # ACK flag
+    psh_flag = (flags >> 3) & 1  # PSH flag
+    rst_flag = (flags >> 2) & 1  # RST flag
+    syn_flag = (flags >> 1) & 1  # SYN flag
+    fin_flag = flags & 1  # FIN flag
+
+    window_size = int(hex_data[28:32], 16)
+    checksum = int(hex_data[32:36], 16)
+
+    urgent_pointer = int(hex_data[36:40], 16)
+
+    print(f"TCP Header:")
+    print(f"  {'Source Port:':<25} {hex_data[0:4]:<20} | {source_port}")
+    print(f"  {'Destination Port:':<25} {hex_data[4:8]:<20} | {destination_port}")
+    print(f"  {'Sequence Number:':<25} {hex_data[8:16]:<20} | {sequence_number}")
+    print(f"  {'Acknowledgement Number:':<25} {hex_data[16:24]:<20} | {acknowledgement_number}")
+    print(f"  {'Data Offset:':<25} {hex_data[24:26]:<20} | {data_offset_flags}")
+    print(f"  {'Flags:':<25} {hex_data[26:28]:<20} | {flags}")
+    print(f"    {'NS:':<10} {ns_flag:<20}")
+    print(f"    {'CRW:':<10} {cwr_flag:<20}")
+    print(f"    {'ECE:':<10} {ece_flag:<20}")
+    print(f"    {'URG:':<10} {urg_flag:<20}")
+    print(f"    {'ACK:':<10} {ack_flag:<20}")
+    print(f"    {'PSH:':<10} {psh_flag:<20}")
+    print(f"    {'RST:':<10} {rst_flag:<20}")
+    print(f"    {'SYN:':<10} {syn_flag:<20}")
+    print(f"    {'FIN:':<10} {fin_flag:<20}")
+    print(f"  {'Windows Size:':<25} {hex_data[28:32]:<20} | {window_size}")
+    print(f"  {'Checksum:':<25} {hex_data[32:36]:<20} | {checksum}")
+    print(f"  {'Urgent Pointer:':<25} {hex_data[36:40]:<20} | {urgent_pointer}")
+    print(f"  {'Payload (hex):':<25} {hex_data[40:]:<20}")
 
 def parse_udp_header(hex_data):
     source_port = int(hex_data[0:4], 16)
