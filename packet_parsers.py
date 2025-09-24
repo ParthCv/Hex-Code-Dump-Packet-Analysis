@@ -61,6 +61,10 @@ def parse_ipv4_header(hex_data):
     identification =  int(hex_data[8:12], 16)
     flags_and_fragment = int(hex_data[12:16], 16)
     # add the reserved, df, mf and fragment offset flags
+    reserved_flag = (flags_and_fragment >> 15) & 1
+    df_flag = (flags_and_fragment >> 14) & 1
+    mf_flag = (flags_and_fragment >> 13) & 1
+    fragment_offset = flags_and_fragment & 0x1FFF
 
     protocol = int(hex_data[18:20], 16)
 
@@ -77,6 +81,10 @@ def parse_ipv4_header(hex_data):
     print(f"  {'Header Length:':<25} {hex_data[1]:<20} | {header_length}")
     print(f"  {'Total Length:':<25} {hex_data[4:8]:<20} | {total_length}")
     print(f"  {'Flags & Frag Offset:':<25} {hex_data[12:16]:<20} | {flags_and_fragment}")
+    print(f"    {'Reserved:':<10} {reserved_flag:<20}")
+    print(f"    {'DF (Do not Fragment):':<10} {df_flag:<20}")
+    print(f"    {'MF (More Fragments):':<10} {mf_flag:<20}")
+    print(f"    {'Fragment Offset:':<10} {hex(fragment_offset):<1} | {fragment_offset}")
     print(f"  {'Protocol:':<25} {hex_data[18:20]:<20} | {protocol}")
     print(f"  {'Source IP:':<25} {hex_data[24:32]:<20} | {source_ip}")
     print(f"  {'Destination IP:':<25} {hex_data[32:40]:<20} | {destination_ip}")
