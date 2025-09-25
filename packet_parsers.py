@@ -1,4 +1,7 @@
 # Parse Ethernet header
+from sys import flags
+
+
 def parse_ethernet_header(hex_data):
     dest_mac = ':'.join(hex_data[i:i+2] for i in range(0, 12, 2))
     source_mac = ':'.join(hex_data[i:i+2] for i in range(12, 24, 2))
@@ -172,6 +175,42 @@ def parse_udp_header(hex_data):
     print(f"  {'Length:':<25} {hex_data[8:12]:<20} | {length}")
     print(f"  {'Checksum:':<25} {hex_data[12:16]:<20} | {checksum}")
     print(f"  {'Payload (hex):':<25} {hex_data[16:]:<20}")
+
+    if source_port == 53 or destination_port == 53:
+        parse_dns_header(hex_data[16:])
+
+
+def parse_dns_header(hex_data):
+    transaction_id = int(hex_data[0:4], 16)
+    flags = int(hex_data[4:8], 16)
+
+    qr = (flags >> 15) & 1
+    opcode = (flags >> 11) & 0xF
+    aa = (flags >> 10) & 1
+    tc = (flags >> 9) & 1
+    rd = (flags >> 8) & 1
+    ra = (flags >> 7) & 1
+    rcode = flags & 0xF
+
+    question = int(hex_data[8:12], 16)
+    answer_rrs = int(hex_data[12:16], 16)
+    authority_rrs = int(hex_data[16:20], 16)
+    additional_rrs = int(hex_data[20:24], 16)
+
+    print("DNS Header:")
+    print(f"  {'Transaction ID:':<25} {hex_data[0:4]:<20} | {transaction_id}")
+    print(f"  {'Flags:':<25} {hex_data[4:8]:<20} | {flags}")
+    print(f"    {'QR (Query/Response):':<10} {qr:<20}")
+    print(f"    {'Opcode:':<10} {opcode:<20}")
+    print(f"    {'AA (Auth Answer):':<10} {aa:<20}")
+    print(f"    {'TC (Truncated):':<10} {tc:<20}")
+    print(f"    {'RD (Recursion Des):':<10} {rd:<20}")
+    print(f"    {'RA (Recursion Avail):':<10} {ra:<20}")
+    print(f"    {'Response Code:':<10} {rcode:<20}")
+    print(f"  {'Questions:':<25} {hex_data[8:12]:<20} | {question}")
+    print(f"  {'Answer RRs:':<25} {hex_data[12:16]:<20} | {answer_rrs}")
+    print(f"  {'Authority RRs:':<25} {hex_data[16:20]:<20} | {authority_rrs}")
+    print(f"  {'Additional RRs:':<25} {hex_data[20:24]:<20} | {additional_rrs}")
 
 def parse_ipv6_header(hex_data):
     # TODO: Not tested yet, macOs doesnt catch the ipv6
