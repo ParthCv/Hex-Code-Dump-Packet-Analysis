@@ -123,11 +123,11 @@ def parse_tcp_header(hex_data):
     sequence_number = int(hex_data[8:16], 16)
     acknowledgement_number = int(hex_data[16:24], 16)
 
-    data_offset_flags = int(hex_data[24:26], 16) * 4
+    data_offset_flags = int(hex_data[24], 16) * 4
 
     flags = int(hex_data[26:28], 16)
 
-    ns_flag = (flags >> 8) & 1  # NS flag (bit 8 of flags field)
+    ns_flag = (flags >> 0) & 1  # NS flag (bit 8 of flags field)
     cwr_flag = (flags >> 7) & 1  # CWR flag
     ece_flag = (flags >> 6) & 1  # ECE flag
     urg_flag = (flags >> 5) & 1  # URG flag
@@ -147,7 +147,7 @@ def parse_tcp_header(hex_data):
     print(f"  {'Destination Port:':<25} {hex_data[4:8]:<20} | {destination_port}")
     print(f"  {'Sequence Number:':<25} {hex_data[8:16]:<20} | {sequence_number}")
     print(f"  {'Acknowledgement Number:':<25} {hex_data[16:24]:<20} | {acknowledgement_number}")
-    print(f"  {'Data Offset:':<25} {hex_data[24:26]:<20} | {data_offset_flags}")
+    print(f"  {'Data Offset:':<25} {hex_data[24]:<20} | {data_offset_flags}")
     print(f"  {'Flags:':<25} {hex_data[26:28]:<20} | {flags}")
     print(f"    {'NS:':<10} {ns_flag:<20}")
     print(f"    {'CRW:':<10} {cwr_flag:<20}")
@@ -212,9 +212,21 @@ def parse_dns_header(hex_data):
     print(f"  {'Authority RRs:':<25} {hex_data[16:20]:<20} | {authority_rrs}")
     print(f"  {'Additional RRs:':<25} {hex_data[20:24]:<20} | {additional_rrs}")
 
+
+def parse_icmpv6_header(hex_data):
+    icmp6_type = int(hex_data[0:2], 16)
+    icmp6_code = int(hex_data[2:4], 16)
+    checksum = int(hex_data[4:8], 16)
+
+    print(f"ICMP6 Header:")
+    print(f"  {'Type:':<25} {hex_data[0:2]:<20} | {icmp6_type}")
+    print(f"  {'Code:':<25} {hex_data[2:4]:<20} | {icmp6_code}")
+    print(f"  {'Checksum:':<25} {hex_data[4:8]:<20} | {checksum}")
+    print(f"  {'Payload (hex):':<25} {hex_data[8:]:<20}")
+
 def parse_ipv6_header(hex_data):
     # TODO: Not tested yet, macOs doesnt catch the ipv6
-    version = int(hex_data[8], 16)
+    version = int(hex_data[0], 16)
     payload_length = int(hex_data[8:12], 16)
     next_header = int(hex_data[12:14], 16)
     hop_limit = int(hex_data[14:16], 16)
@@ -226,9 +238,20 @@ def parse_ipv6_header(hex_data):
     destination_ipv6 = ":".join(destination_ipv6_hex[i:i+4] for i in range(0, 32, 4))
 
     print(f"IPv6 Header:")
-    print(f"  {'Version:':<25} {hex_data[8]:<20} | {version}")
+    print(f"  {'Version:':<25} {hex_data[0]:<20} | {version}")
     print(f"  {'Payload Length:':<25} {hex_data[8:12]:<20} | {payload_length}")
     print(f"  {'Next Header:':<25} {hex_data[12:14]:<20} | {next_header}")
     print(f"  {'Hop Limit:':<25} {hex_data[14:16]:<20} | {hop_limit}")
     print(f"  {'Source IP':<25} {hex_data[16:48]:<20} | {source_ipv6}")
     print(f"  {'Destination IP:':<25} {hex_data[48:80]:<20} | {destination_ipv6}")
+
+    payload = hex_data[80:]
+
+    if next_header == 58:  # ICMPv6
+        parse_icmpv6_header(payload)
+    elif next_header == 6:  # TCP
+        parse_tcp_header(payload)
+    elif next_header == 17:  # UDP
+        parse_udp_header(payload)
+    else:
+        print(f"  {'Unknown Next Header:':<25} {next_header:<20}")
