@@ -7,6 +7,10 @@ def parse_ethernet_header(hex_data):
     source_mac = ':'.join(hex_data[i:i+2] for i in range(12, 24, 2))
     ether_type = hex_data[24:28]
 
+    print("hex dump")
+    print(hex_data)
+    print()
+
     print(f"Ethernet Header:")
     print(f"  {'Destination MAC:':<25} {hex_data[0:12]:<20} | {dest_mac}")
     print(f"  {'Source MAC:':<25} {hex_data[12:24]:<20} | {source_mac}")
@@ -52,11 +56,11 @@ def parse_arp_header(hex_data):
     print(f"  {'Protocol Type:':<25} {hex_data[4:8]:<20} | {protocol_type}")
     print(f"  {'Hardware Size:':<25} {hex_data[8:10]:<20} | {hardware_size}")
     print(f"  {'Protocol Size:':<25} {hex_data[10:12]:<20} | {protocol_size}")
-    print(f"  {'Opcode:':<25} {hex_data[12:16]:<20} | {opcode}")
-    print(f"  {'Sender Mac address:':<25} {sender_mac_hex:<20} | {sender_mac}")
-    print(f"  {'Sender IP address:':<25} {sender_ip_hex:<20} | {sender_ip}")
-    print(f"  {'Target Mac address:':<25} {target_mac_hex:<20} | {target_mac}")
-    print(f"  {'Target IP address:':<25} {target_ip_hex:<20} | {target_ip}")
+    print(f"  {'Operation:':<25} {hex_data[12:16]:<20} | {opcode}")
+    print(f"  {'Sender MAC:':<25} {sender_mac_hex:<20} | {sender_mac}")
+    print(f"  {'Sender IP:':<25} {sender_ip_hex:<20} | {sender_ip}")
+    print(f"  {'Target MAC:':<25} {target_mac_hex:<20} | {target_mac}")
+    print(f"  {'Target IP:':<25} {target_ip_hex:<20} | {target_ip}")
     print(f"")
 
 def parse_ipv4_header(hex_data):
@@ -122,9 +126,8 @@ def parse_tcp_header(hex_data):
     destination_port = int(hex_data[4:8], 16)
     sequence_number = int(hex_data[8:16], 16)
     acknowledgement_number = int(hex_data[16:24], 16)
-
-    data_offset_flags = int(hex_data[24], 16) * 4
-
+    data_offset = int(hex_data[24], 16) * 4
+    reserved = int(hex_data[25], 16)
     flags = int(hex_data[26:28], 16)
 
     ns_flag = (flags >> 0) & 1  # NS flag (bit 8 of flags field)
@@ -147,7 +150,8 @@ def parse_tcp_header(hex_data):
     print(f"  {'Destination Port:':<25} {hex_data[4:8]:<20} | {destination_port}")
     print(f"  {'Sequence Number:':<25} {hex_data[8:16]:<20} | {sequence_number}")
     print(f"  {'Acknowledgement Number:':<25} {hex_data[16:24]:<20} | {acknowledgement_number}")
-    print(f"  {'Data Offset:':<25} {hex_data[24]:<20} | {data_offset_flags}")
+    print(f"  {'Data Offset:':<25} {hex_data[24]:<20} | {data_offset} bytes")
+    print(f"  {'Reserved:':<25} {hex_data[25]:<20} | {reserved}")
     print(f"  {'Flags:':<25} {hex_data[26:28]:<20} | {flags}")
     print(f"    {'NS:':<10} {ns_flag:<20}")
     print(f"    {'CRW:':<10} {cwr_flag:<20}")
@@ -211,6 +215,7 @@ def parse_dns_header(hex_data):
     print(f"  {'Answer RRs:':<25} {hex_data[12:16]:<20} | {answer_rrs}")
     print(f"  {'Authority RRs:':<25} {hex_data[16:20]:<20} | {authority_rrs}")
     print(f"  {'Additional RRs:':<25} {hex_data[20:24]:<20} | {additional_rrs}")
+    print(f"  {'Payload (hex):':<25} {hex_data[24:]:<20}")
 
 
 def parse_icmpv6_header(hex_data):
@@ -225,7 +230,6 @@ def parse_icmpv6_header(hex_data):
     print(f"  {'Payload (hex):':<25} {hex_data[8:]:<20}")
 
 def parse_ipv6_header(hex_data):
-    # TODO: Not tested yet, macOs doesnt catch the ipv6
     version = int(hex_data[0], 16)
     payload_length = int(hex_data[8:12], 16)
     next_header = int(hex_data[12:14], 16)
