@@ -174,6 +174,8 @@ def parse_tcp_header(hex_data):
     data_offset = int(hex_data[24], 16) * 4  # Data offset (upper 4 bits) * 4 = header length
     reserved = int(hex_data[25], 16)  # Reserved field (lower 4 bits): should be 0
 
+    flags = int(hex_data[26:28], 16)  # Control flags byte
+
     ns_flag = (flags >> 0) & 1  # NS flag (bit 8 of flags field)
     cwr_flag = (flags >> 7) & 1  # CWR flag
     ece_flag = (flags >> 6) & 1  # ECE flag
