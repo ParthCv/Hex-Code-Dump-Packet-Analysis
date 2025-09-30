@@ -1,0 +1,365 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="907pt" height="1100pt" viewBox="0.00 0.00 907.00 1100.00">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1096.43)">
+<title>PacketParsing</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-1096.43 903.32,-1096.43 903.32,4 -4,4"/>
+<!-- RAW_PACKET -->
+<g id="node1" class="node">
+<title>RAW_PACKET</title>
+<ellipse fill="lightblue" stroke="black" cx="158.24" cy="-1074.43" rx="77.54" ry="18"/>
+<text xml:space="preserve" text-anchor="middle" x="158.24" y="-1070.23" font-family="Times,serif" font-size="14.00">Raw Packet Data</text>
+</g>
+<!-- TO_HEX -->
+<g id="node2" class="node">
+<title>TO_HEX</title>
+<path fill="none" stroke="black" d="M184.76,-1019.43C184.76,-1019.43 131.71,-1019.43 131.71,-1019.43 125.71,-1019.43 119.71,-1013.43 119.71,-1007.43 119.71,-1007.43 119.71,-989.83 119.71,-989.83 119.71,-983.83 125.71,-977.83 131.71,-977.83 131.71,-977.83 184.76,-977.83 184.76,-977.83 190.76,-977.83 196.76,-983.83 196.76,-989.83 196.76,-989.83 196.76,-1007.43 196.76,-1007.43 196.76,-1013.43 190.76,-1019.43 184.76,-1019.43"/>
+<text xml:space="preserve" text-anchor="middle" x="158.24" y="-1002.83" font-family="Times,serif" font-size="14.00">Convert to</text>
+<text xml:space="preserve" text-anchor="middle" x="158.24" y="-986.03" font-family="Times,serif" font-size="14.00">Hex String</text>
+</g>
+<!-- RAW_PACKET&#45;&gt;TO_HEX -->
+<g id="edge1" class="edge">
+<title>RAW_PACKET-&gt;TO_HEX</title>
+<path fill="none" stroke="black" d="M158.24,-1055.94C158.24,-1048.58 158.24,-1039.78 158.24,-1031.35"/>
+<polygon fill="black" stroke="black" points="161.74,-1031.38 158.24,-1021.38 154.74,-1031.38 161.74,-1031.38"/>
+</g>
+<!-- ETHERNET -->
+<g id="node3" class="node">
+<title>ETHERNET</title>
+<polygon fill="lightgreen" stroke="black" points="233.86,-940.83 82.61,-940.83 82.61,-899.23 233.86,-899.23 233.86,-940.83"/>
+<text xml:space="preserve" text-anchor="middle" x="158.24" y="-924.23" font-family="Times,serif" font-size="14.00">Parse Ethernet Header</text>
+<text xml:space="preserve" text-anchor="middle" x="158.24" y="-907.43" font-family="Times,serif" font-size="14.00">parse_ethernet_header()</text>
+</g>
+<!-- TO_HEX&#45;&gt;ETHERNET -->
+<g id="edge2" class="edge">
+<title>TO_HEX-&gt;ETHERNET</title>
+<path fill="none" stroke="black" d="M158.24,-977.51C158.24,-969.91 158.24,-961.08 158.24,-952.69"/>
+<polygon fill="black" stroke="black" points="161.74,-952.8 158.24,-942.8 154.74,-952.8 161.74,-952.8"/>
+</g>
+<!-- CHECK_ETHER -->
+<g id="node4" class="node">
+<title>CHECK_ETHER</title>
+<path fill="none" stroke="black" d="M146.39,-860.32C146.39,-860.32 58.54,-846.14 58.54,-846.14 52.61,-845.19 52.61,-843.28 58.54,-842.32 58.54,-842.32 146.39,-828.14 146.39,-828.14 152.31,-827.19 164.16,-827.19 170.08,-828.14 170.08,-828.14 257.94,-842.32 257.94,-842.32 263.86,-843.28 263.86,-845.19 257.94,-846.14 257.94,-846.14 170.08,-860.32 170.08,-860.32 164.16,-861.28 152.31,-861.28 146.39,-860.32"/>
+<text xml:space="preserve" text-anchor="middle" x="158.24" y="-840.03" font-family="Times,serif" font-size="14.00">Check EtherType</text>
+</g>
+<!-- ETHERNET&#45;&gt;CHECK_ETHER -->
+<g id="edge3" class="edge">
+<title>ETHERNET-&gt;CHECK_ETHER</title>
+<path fill="none" stroke="black" d="M158.24,-898.87C158.24,-891.09 158.24,-882.06 158.24,-873.65"/>
+<polygon fill="black" stroke="black" points="161.74,-873.88 158.24,-863.88 154.74,-873.88 161.74,-873.88"/>
+</g>
+<!-- ARP -->
+<g id="node5" class="node">
+<title>ARP</title>
+<polygon fill="lightyellow" stroke="black" points="124.47,-697.03 0,-697.03 0,-638.63 124.47,-638.63 124.47,-697.03"/>
+<text xml:space="preserve" text-anchor="middle" x="62.24" y="-680.43" font-family="Times,serif" font-size="14.00">Parse ARP</text>
+<text xml:space="preserve" text-anchor="middle" x="62.24" y="-663.63" font-family="Times,serif" font-size="14.00">parse_arp_header()</text>
+<text xml:space="preserve" text-anchor="middle" x="62.24" y="-646.83" font-family="Times,serif" font-size="14.00">EtherType: 0x0806</text>
+</g>
+<!-- CHECK_ETHER&#45;&gt;ARP -->
+<g id="edge4" class="edge">
+<title>CHECK_ETHER-&gt;ARP</title>
+<path fill="none" stroke="black" d="M119.16,-832.14C106.89,-826.8 94.42,-819.12 86.24,-808.23 64.88,-779.81 60,-738.95 59.8,-708.81"/>
+<polygon fill="black" stroke="black" points="63.29,-708.98 59.92,-698.94 56.29,-708.9 63.29,-708.98"/>
+<text xml:space="preserve" text-anchor="middle" x="107.24" y="-795.63" font-family="Times,serif" font-size="14.00">0x0806</text>
+</g>
+<!-- IPv4 -->
+<g id="node6" class="node">
+<title>IPv4</title>
+<polygon fill="lightcoral" stroke="black" points="328.76,-773.43 197.71,-773.43 197.71,-715.03 328.76,-715.03 328.76,-773.43"/>
+<text xml:space="preserve" text-anchor="middle" x="263.24" y="-756.83" font-family="Times,serif" font-size="14.00">Parse IPv4</text>
+<text xml:space="preserve" text-anchor="middle" x="263.24" y="-740.03" font-family="Times,serif" font-size="14.00">parse_ipv4_header()</text>
+<text xml:space="preserve" text-anchor="middle" x="263.24" y="-723.23" font-family="Times,serif" font-size="14.00">EtherType: 0x0800</text>
+</g>
+<!-- CHECK_ETHER&#45;&gt;IPv4 -->
+<g id="edge5" class="edge">
+<title>CHECK_ETHER-&gt;IPv4</title>
+<path fill="none" stroke="black" d="M174.18,-828.35C187.5,-815.92 207.03,-797.69 224.42,-781.46"/>
+<polygon fill="black" stroke="black" points="226.71,-784.11 231.63,-774.73 221.94,-778.99 226.71,-784.11"/>
+<text xml:space="preserve" text-anchor="middle" x="231.74" y="-795.63" font-family="Times,serif" font-size="14.00">0x0800</text>
+</g>
+<!-- IPv6 -->
+<g id="node7" class="node">
+<title>IPv6</title>
+<polygon fill="lightcyan" stroke="black" points="591.76,-773.43 460.71,-773.43 460.71,-715.03 591.76,-715.03 591.76,-773.43"/>
+<text xml:space="preserve" text-anchor="middle" x="526.24" y="-756.83" font-family="Times,serif" font-size="14.00">Parse IPv6</text>
+<text xml:space="preserve" text-anchor="middle" x="526.24" y="-740.03" font-family="Times,serif" font-size="14.00">parse_ipv6_header()</text>
+<text xml:space="preserve" text-anchor="middle" x="526.24" y="-723.23" font-family="Times,serif" font-size="14.00">EtherType: 0x86dd</text>
+</g>
+<!-- CHECK_ETHER&#45;&gt;IPv6 -->
+<g id="edge6" class="edge">
+<title>CHECK_ETHER-&gt;IPv6</title>
+<path fill="none" stroke="black" d="M199.02,-832.37C259.31,-816.31 373.28,-785.96 449.5,-765.67"/>
+<polygon fill="black" stroke="black" points="450.24,-769.09 459,-763.14 448.44,-762.33 450.24,-769.09"/>
+<text xml:space="preserve" text-anchor="middle" x="363.24" y="-795.63" font-family="Times,serif" font-size="14.00">0x86dd</text>
+</g>
+<!-- UNKNOWN_ETHER -->
+<g id="node8" class="node">
+<title>UNKNOWN_ETHER</title>
+<path fill="none" stroke="black" d="M197.14,-519.43C197.14,-519.43 87.33,-519.43 87.33,-519.43 81.33,-519.43 75.33,-513.43 75.33,-507.43 75.33,-507.43 75.33,-489.83 75.33,-489.83 75.33,-483.83 81.33,-477.83 87.33,-477.83 87.33,-477.83 197.14,-477.83 197.14,-477.83 203.14,-477.83 209.14,-483.83 209.14,-489.83 209.14,-489.83 209.14,-507.43 209.14,-507.43 209.14,-513.43 203.14,-519.43 197.14,-519.43"/>
+<text xml:space="preserve" text-anchor="middle" x="142.24" y="-502.83" font-family="Times,serif" font-size="14.00">Unknown EtherType</text>
+<text xml:space="preserve" text-anchor="middle" x="142.24" y="-486.03" font-family="Times,serif" font-size="14.00">Display Error</text>
+</g>
+<!-- CHECK_ETHER&#45;&gt;UNKNOWN_ETHER -->
+<g id="edge7" class="edge">
+<title>CHECK_ETHER-&gt;UNKNOWN_ETHER</title>
+<path fill="none" stroke="black" d="M157.44,-826.19C154.91,-771.79 146.99,-601.69 143.7,-530.96"/>
+<polygon fill="black" stroke="black" points="147.2,-531.07 143.24,-521.24 140.21,-531.39 147.2,-531.07"/>
+<text xml:space="preserve" text-anchor="middle" x="169.34" y="-740.03" font-family="Times,serif" font-size="14.00">other</text>
+</g>
+<!-- DISPLAY -->
+<g id="node22" class="node">
+<title>DISPLAY</title>
+<ellipse fill="lightgreen" stroke="black" cx="448.24" cy="-29.42" rx="70.98" ry="29.42"/>
+<text xml:space="preserve" text-anchor="middle" x="448.24" y="-33.62" font-family="Times,serif" font-size="14.00">Display Parsed</text>
+<text xml:space="preserve" text-anchor="middle" x="448.24" y="-16.82" font-family="Times,serif" font-size="14.00">Fields</text>
+</g>
+<!-- ARP&#45;&gt;DISPLAY -->
+<g id="edge22" class="edge">
+<title>ARP-&gt;DISPLAY</title>
+<path fill="none" stroke="black" d="M61.68,-638.13C61.09,-604.83 60.24,-548.26 60.24,-499.63 60.24,-499.63 60.24,-499.63 60.24,-124.03 60.24,-61.64 252.2,-40.7 366.08,-33.77"/>
+<polygon fill="black" stroke="black" points="366.23,-37.27 376.01,-33.19 365.82,-30.28 366.23,-37.27"/>
+</g>
+<!-- CHECK_IPv4_PROTO -->
+<g id="node9" class="node">
+<title>CHECK_IPv4_PROTO</title>
+<path fill="none" stroke="black" d="M262.11,-616.13C262.11,-616.13 181.65,-583.54 181.65,-583.54 176.09,-581.28 176.09,-576.78 181.65,-574.53 181.65,-574.53 262.11,-541.94 262.11,-541.94 267.68,-539.68 278.8,-539.68 284.36,-541.94 284.36,-541.94 364.82,-574.53 364.82,-574.53 370.38,-576.78 370.38,-581.28 364.82,-583.54 364.82,-583.54 284.36,-616.13 284.36,-616.13 278.8,-618.38 267.68,-618.38 262.11,-616.13"/>
+<text xml:space="preserve" text-anchor="middle" x="273.24" y="-583.23" font-family="Times,serif" font-size="14.00">Check Protocol</text>
+<text xml:space="preserve" text-anchor="middle" x="273.24" y="-566.43" font-family="Times,serif" font-size="14.00">Field</text>
+</g>
+<!-- IPv4&#45;&gt;CHECK_IPv4_PROTO -->
+<g id="edge8" class="edge">
+<title>IPv4-&gt;CHECK_IPv4_PROTO</title>
+<path fill="none" stroke="black" d="M264.98,-714.8C266.38,-691.87 268.4,-659.01 270.08,-631.48"/>
+<polygon fill="black" stroke="black" points="273.57,-631.76 270.69,-621.56 266.59,-631.33 273.57,-631.76"/>
+</g>
+<!-- CHECK_IPv6_NEXT -->
+<g id="node14" class="node">
+<title>CHECK_IPv6_NEXT</title>
+<path fill="none" stroke="black" d="M636.84,-616.88C636.84,-616.88 533.24,-582.78 533.24,-582.78 527.54,-580.91 527.54,-577.16 533.24,-575.28 533.24,-575.28 636.84,-541.18 636.84,-541.18 642.54,-539.31 653.94,-539.31 659.63,-541.18 659.63,-541.18 763.23,-575.28 763.23,-575.28 768.93,-577.16 768.93,-580.91 763.23,-582.78 763.23,-582.78 659.63,-616.88 659.63,-616.88 653.94,-618.76 642.54,-618.76 636.84,-616.88"/>
+<text xml:space="preserve" text-anchor="middle" x="648.24" y="-583.23" font-family="Times,serif" font-size="14.00">Check Next Header</text>
+<text xml:space="preserve" text-anchor="middle" x="648.24" y="-566.43" font-family="Times,serif" font-size="14.00">Field</text>
+</g>
+<!-- IPv6&#45;&gt;CHECK_IPv6_NEXT -->
+<g id="edge13" class="edge">
+<title>IPv6-&gt;CHECK_IPv6_NEXT</title>
+<path fill="none" stroke="black" d="M547.49,-714.8C566.65,-689.18 595.07,-651.15 616.85,-622.02"/>
+<polygon fill="black" stroke="black" points="619.57,-624.22 622.76,-614.12 613.97,-620.03 619.57,-624.22"/>
+</g>
+<!-- UNKNOWN_ETHER&#45;&gt;DISPLAY -->
+<g id="edge29" class="edge">
+<title>UNKNOWN_ETHER-&gt;DISPLAY</title>
+<path fill="none" stroke="black" d="M142.24,-477.35C142.24,-449.73 142.24,-398.74 142.24,-355.23 142.24,-355.23 142.24,-355.23 142.24,-124.03 142.24,-76.75 277.52,-50.95 368.19,-38.98"/>
+<polygon fill="black" stroke="black" points="368.59,-42.46 378.06,-37.71 367.7,-35.51 368.59,-42.46"/>
+</g>
+<!-- ICMP -->
+<g id="node10" class="node">
+<title>ICMP</title>
+<polygon fill="wheat" stroke="black" points="531.32,-383.43 397.16,-383.43 397.16,-325.03 531.32,-325.03 531.32,-383.43"/>
+<text xml:space="preserve" text-anchor="middle" x="464.24" y="-366.83" font-family="Times,serif" font-size="14.00">Parse ICMP</text>
+<text xml:space="preserve" text-anchor="middle" x="464.24" y="-350.03" font-family="Times,serif" font-size="14.00">parse_icmp_header()</text>
+<text xml:space="preserve" text-anchor="middle" x="464.24" y="-333.23" font-family="Times,serif" font-size="14.00">Protocol: 1</text>
+</g>
+<!-- CHECK_IPv4_PROTO&#45;&gt;ICMP -->
+<g id="edge9" class="edge">
+<title>CHECK_IPv4_PROTO-&gt;ICMP</title>
+<path fill="none" stroke="black" d="M319.77,-555.97C357.02,-535.97 407.73,-503.01 437.24,-459.83 450.3,-440.71 457.04,-415.71 460.52,-394.94"/>
+<polygon fill="black" stroke="black" points="463.98,-395.49 461.96,-385.09 457.05,-394.48 463.98,-395.49"/>
+<text xml:space="preserve" text-anchor="middle" x="426.43" y="-494.43" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- TCP_v4 -->
+<g id="node11" class="node">
+<title>TCP_v4</title>
+<polygon fill="plum" stroke="black" points="280.87,-230.63 157.6,-230.63 157.6,-172.23 280.87,-172.23 280.87,-230.63"/>
+<text xml:space="preserve" text-anchor="middle" x="219.24" y="-214.03" font-family="Times,serif" font-size="14.00">Parse TCP</text>
+<text xml:space="preserve" text-anchor="middle" x="219.24" y="-197.23" font-family="Times,serif" font-size="14.00">parse_tcp_header()</text>
+<text xml:space="preserve" text-anchor="middle" x="219.24" y="-180.43" font-family="Times,serif" font-size="14.00">Protocol: 6</text>
+</g>
+<!-- CHECK_IPv4_PROTO&#45;&gt;TCP_v4 -->
+<g id="edge10" class="edge">
+<title>CHECK_IPv4_PROTO-&gt;TCP_v4</title>
+<path fill="none" stroke="black" d="M265.57,-540.13C257.86,-501.01 246.02,-438.15 238.24,-383.43 231.35,-335.02 225.85,-279 222.57,-242.26"/>
+<polygon fill="black" stroke="black" points="226.08,-242.2 221.72,-232.55 219.11,-242.81 226.08,-242.2"/>
+<text xml:space="preserve" text-anchor="middle" x="253.9" y="-426.43" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- UDP_v4 -->
+<g id="node12" class="node">
+<title>UDP_v4</title>
+<polygon fill="pink" stroke="black" points="427.82,-459.83 300.65,-459.83 300.65,-401.43 427.82,-401.43 427.82,-459.83"/>
+<text xml:space="preserve" text-anchor="middle" x="364.24" y="-443.23" font-family="Times,serif" font-size="14.00">Parse UDP</text>
+<text xml:space="preserve" text-anchor="middle" x="364.24" y="-426.43" font-family="Times,serif" font-size="14.00">parse_udp_header()</text>
+<text xml:space="preserve" text-anchor="middle" x="364.24" y="-409.63" font-family="Times,serif" font-size="14.00">Protocol: 17</text>
+</g>
+<!-- CHECK_IPv4_PROTO&#45;&gt;UDP_v4 -->
+<g id="edge11" class="edge">
+<title>CHECK_IPv4_PROTO-&gt;UDP_v4</title>
+<path fill="none" stroke="black" d="M293.66,-545.18C307.6,-522.75 326.1,-492.98 340.67,-469.55"/>
+<polygon fill="black" stroke="black" points="343.54,-471.56 345.84,-461.22 337.59,-467.87 343.54,-471.56"/>
+<text xml:space="preserve" text-anchor="middle" x="341.8" y="-494.43" font-family="Times,serif" font-size="14.00">17</text>
+</g>
+<!-- UNKNOWN_IPv4 -->
+<g id="node13" class="node">
+<title>UNKNOWN_IPv4</title>
+<path fill="none" stroke="black" d="M349.32,-372.23C349.32,-372.23 251.16,-372.23 251.16,-372.23 245.16,-372.23 239.16,-366.23 239.16,-360.23 239.16,-360.23 239.16,-348.23 239.16,-348.23 239.16,-342.23 245.16,-336.23 251.16,-336.23 251.16,-336.23 349.32,-336.23 349.32,-336.23 355.32,-336.23 361.32,-342.23 361.32,-348.23 361.32,-348.23 361.32,-360.23 361.32,-360.23 361.32,-366.23 355.32,-372.23 349.32,-372.23"/>
+<text xml:space="preserve" text-anchor="middle" x="300.24" y="-350.03" font-family="Times,serif" font-size="14.00">Unknown Protocol</text>
+</g>
+<!-- CHECK_IPv4_PROTO&#45;&gt;UNKNOWN_IPv4 -->
+<g id="edge12" class="edge">
+<title>CHECK_IPv4_PROTO-&gt;UNKNOWN_IPv4</title>
+<path fill="none" stroke="black" d="M273.7,-537.47C274.23,-519.2 275.31,-497.39 277.47,-477.83 281.27,-443.54 284.88,-435.34 291.24,-401.43 292.34,-395.56 293.54,-389.27 294.71,-383.28"/>
+<polygon fill="black" stroke="black" points="298.07,-384.3 296.55,-373.82 291.2,-382.96 298.07,-384.3"/>
+<text xml:space="preserve" text-anchor="middle" x="291.85" y="-494.43" font-family="Times,serif" font-size="14.00">other</text>
+</g>
+<!-- ICMP&#45;&gt;DISPLAY -->
+<g id="edge23" class="edge">
+<title>ICMP-&gt;DISPLAY</title>
+<path fill="none" stroke="black" d="M503.25,-324.56C508.82,-319.2 514.07,-313.3 518.24,-307.03 571.58,-226.79 616.29,-178.77 567.24,-95.83 555.58,-76.13 535.65,-61.96 515.4,-51.96"/>
+<polygon fill="black" stroke="black" points="517.06,-48.88 506.52,-47.88 514.14,-55.24 517.06,-48.88"/>
+</g>
+<!-- TCP_v4&#45;&gt;DISPLAY -->
+<g id="edge25" class="edge">
+<title>TCP_v4-&gt;DISPLAY</title>
+<path fill="none" stroke="black" d="M226.26,-171.88C234.67,-143.68 251.48,-101.31 281.24,-76.83 305.65,-56.74 338.16,-45.32 368,-38.84"/>
+<polygon fill="black" stroke="black" points="368.68,-42.28 377.8,-36.89 367.31,-35.41 368.68,-42.28"/>
+</g>
+<!-- CHECK_UDP_PORT -->
+<g id="node19" class="node">
+<title>CHECK_UDP_PORT</title>
+<path fill="none" stroke="black" d="M415.52,-293.26C415.52,-293.26 356.96,-280.4 356.96,-280.4 351.1,-279.12 351.1,-276.54 356.96,-275.26 356.96,-275.26 415.52,-262.4 415.52,-262.4 421.38,-261.12 433.1,-261.12 438.96,-262.4 438.96,-262.4 497.51,-275.26 497.51,-275.26 503.37,-276.54 503.37,-279.12 497.51,-280.4 497.51,-280.4 438.96,-293.26 438.96,-293.26 433.1,-294.54 421.38,-294.54 415.52,-293.26"/>
+<text xml:space="preserve" text-anchor="middle" x="427.24" y="-273.63" font-family="Times,serif" font-size="14.00">Check Ports</text>
+</g>
+<!-- UDP_v4&#45;&gt;CHECK_UDP_PORT -->
+<g id="edge18" class="edge">
+<title>UDP_v4-&gt;CHECK_UDP_PORT</title>
+<path fill="none" stroke="black" d="M369.65,-401.15C374.4,-379.56 382.41,-349.53 394.24,-325.03 398.01,-317.22 403.09,-309.32 408.13,-302.31"/>
+<polygon fill="black" stroke="black" points="410.71,-304.71 413.94,-294.62 405.12,-300.49 410.71,-304.71"/>
+</g>
+<!-- UNKNOWN_IPv4&#45;&gt;DISPLAY -->
+<g id="edge30" class="edge">
+<title>UNKNOWN_IPv4-&gt;DISPLAY</title>
+<path fill="none" stroke="black" d="M298.96,-335.81C295.55,-284.53 288.14,-135.18 314.24,-95.83 328.82,-73.84 353.03,-58.99 376.89,-49.08"/>
+<polygon fill="black" stroke="black" points="377.95,-52.42 386.01,-45.55 375.42,-45.9 377.95,-52.42"/>
+</g>
+<!-- ICMPv6 -->
+<g id="node15" class="node">
+<title>ICMPv6</title>
+<polygon fill="wheat" stroke="black" points="899.32,-230.63 751.16,-230.63 751.16,-172.23 899.32,-172.23 899.32,-230.63"/>
+<text xml:space="preserve" text-anchor="middle" x="825.24" y="-214.03" font-family="Times,serif" font-size="14.00">Parse ICMPv6</text>
+<text xml:space="preserve" text-anchor="middle" x="825.24" y="-197.23" font-family="Times,serif" font-size="14.00">parse_icmpv6_header()</text>
+<text xml:space="preserve" text-anchor="middle" x="825.24" y="-180.43" font-family="Times,serif" font-size="14.00">Next Header: 58</text>
+</g>
+<!-- CHECK_IPv6_NEXT&#45;&gt;ICMPv6 -->
+<g id="edge14" class="edge">
+<title>CHECK_IPv6_NEXT-&gt;ICMPv6</title>
+<path fill="none" stroke="black" d="M686.51,-549.79C697.65,-540.71 709.45,-530.19 719.24,-519.43 768.32,-465.43 787.18,-452.33 811.24,-383.43 827.46,-336.98 829.1,-279.88 827.91,-242.39"/>
+<polygon fill="black" stroke="black" points="831.41,-242.3 827.51,-232.45 824.42,-242.59 831.41,-242.3"/>
+<text xml:space="preserve" text-anchor="middle" x="811.14" y="-426.43" font-family="Times,serif" font-size="14.00">58</text>
+</g>
+<!-- TCP_v6 -->
+<g id="node16" class="node">
+<title>TCP_v6</title>
+<polygon fill="plum" stroke="black" points="707.87,-307.03 584.6,-307.03 584.6,-248.63 707.87,-248.63 707.87,-307.03"/>
+<text xml:space="preserve" text-anchor="middle" x="646.24" y="-290.43" font-family="Times,serif" font-size="14.00">Parse TCP</text>
+<text xml:space="preserve" text-anchor="middle" x="646.24" y="-273.63" font-family="Times,serif" font-size="14.00">parse_tcp_header()</text>
+<text xml:space="preserve" text-anchor="middle" x="646.24" y="-256.83" font-family="Times,serif" font-size="14.00">Next Header: 6</text>
+</g>
+<!-- CHECK_IPv6_NEXT&#45;&gt;TCP_v6 -->
+<g id="edge15" class="edge">
+<title>CHECK_IPv6_NEXT-&gt;TCP_v6</title>
+<path fill="none" stroke="black" d="M647.96,-537.06C647.58,-479.53 646.88,-375.51 646.5,-318.63"/>
+<polygon fill="black" stroke="black" points="650,-318.73 646.44,-308.75 643,-318.78 650,-318.73"/>
+<text xml:space="preserve" text-anchor="middle" x="650.94" y="-426.43" font-family="Times,serif" font-size="14.00">6</text>
+</g>
+<!-- UDP_v6 -->
+<g id="node17" class="node">
+<title>UDP_v6</title>
+<polygon fill="pink" stroke="black" points="611.82,-459.83 484.65,-459.83 484.65,-401.43 611.82,-401.43 611.82,-459.83"/>
+<text xml:space="preserve" text-anchor="middle" x="548.24" y="-443.23" font-family="Times,serif" font-size="14.00">Parse UDP</text>
+<text xml:space="preserve" text-anchor="middle" x="548.24" y="-426.43" font-family="Times,serif" font-size="14.00">parse_udp_header()</text>
+<text xml:space="preserve" text-anchor="middle" x="548.24" y="-409.63" font-family="Times,serif" font-size="14.00">Next Header: 17</text>
+</g>
+<!-- CHECK_IPv6_NEXT&#45;&gt;UDP_v6 -->
+<g id="edge16" class="edge">
+<title>CHECK_IPv6_NEXT-&gt;UDP_v6</title>
+<path fill="none" stroke="black" d="M625.54,-544.81C610.25,-522.42 590.04,-492.83 574.11,-469.52"/>
+<polygon fill="black" stroke="black" points="577.19,-467.81 568.65,-461.52 571.41,-471.76 577.19,-467.81"/>
+<text xml:space="preserve" text-anchor="middle" x="614.19" y="-494.43" font-family="Times,serif" font-size="14.00">17</text>
+</g>
+<!-- UNKNOWN_IPv6 -->
+<g id="node18" class="node">
+<title>UNKNOWN_IPv6</title>
+<path fill="none" stroke="black" d="M797.16,-372.23C797.16,-372.23 675.31,-372.23 675.31,-372.23 669.31,-372.23 663.31,-366.23 663.31,-360.23 663.31,-360.23 663.31,-348.23 663.31,-348.23 663.31,-342.23 669.31,-336.23 675.31,-336.23 675.31,-336.23 797.16,-336.23 797.16,-336.23 803.16,-336.23 809.16,-342.23 809.16,-348.23 809.16,-348.23 809.16,-360.23 809.16,-360.23 809.16,-366.23 803.16,-372.23 797.16,-372.23"/>
+<text xml:space="preserve" text-anchor="middle" x="736.24" y="-350.03" font-family="Times,serif" font-size="14.00">Unknown Next Header</text>
+</g>
+<!-- CHECK_IPv6_NEXT&#45;&gt;UNKNOWN_IPv6 -->
+<g id="edge17" class="edge">
+<title>CHECK_IPv6_NEXT-&gt;UNKNOWN_IPv6</title>
+<path fill="none" stroke="black" d="M662.57,-541.74C680.07,-497.43 709.3,-423.43 725.17,-383.26"/>
+<polygon fill="black" stroke="black" points="728.38,-384.64 728.8,-374.05 721.87,-382.07 728.38,-384.64"/>
+<text xml:space="preserve" text-anchor="middle" x="700.98" y="-494.43" font-family="Times,serif" font-size="14.00">other</text>
+</g>
+<!-- ICMPv6&#45;&gt;DISPLAY -->
+<g id="edge24" class="edge">
+<title>ICMPv6-&gt;DISPLAY</title>
+<path fill="none" stroke="black" d="M816,-171.81C805.1,-142.91 784.05,-99.42 750.24,-76.83 715.08,-53.35 606.61,-41.11 529.76,-35.22"/>
+<polygon fill="black" stroke="black" points="530.4,-31.76 520.17,-34.51 529.88,-38.74 530.4,-31.76"/>
+</g>
+<!-- TCP_v6&#45;&gt;DISPLAY -->
+<g id="edge26" class="edge">
+<title>TCP_v6-&gt;DISPLAY</title>
+<path fill="none" stroke="black" d="M648.01,-248.25C649.05,-205.34 644.45,-124.27 600.24,-76.83 581.64,-56.87 554.73,-45.41 528.71,-38.85"/>
+<polygon fill="black" stroke="black" points="529.64,-35.48 519.11,-36.67 528.08,-42.3 529.64,-35.48"/>
+</g>
+<!-- UDP_v6&#45;&gt;CHECK_UDP_PORT -->
+<g id="edge19" class="edge">
+<title>UDP_v6-&gt;CHECK_UDP_PORT</title>
+<path fill="none" stroke="black" d="M551.27,-401.02C552.13,-378.21 549.69,-346.63 533.24,-325.03 520.3,-308.06 499.83,-297.21 480.31,-290.33"/>
+<polygon fill="black" stroke="black" points="481.65,-287.09 471.06,-287.37 479.51,-293.75 481.65,-287.09"/>
+</g>
+<!-- UNKNOWN_IPv6&#45;&gt;DISPLAY -->
+<g id="edge31" class="edge">
+<title>UNKNOWN_IPv6-&gt;DISPLAY</title>
+<path fill="none" stroke="black" d="M734.62,-335.82C732.31,-314.75 727.2,-278.38 717.24,-248.63 693.08,-176.52 689.42,-153.84 640.24,-95.83 612.61,-63.25 568.05,-46.86 528.81,-38.63"/>
+<polygon fill="black" stroke="black" points="529.61,-35.21 519.12,-36.75 528.28,-42.09 529.61,-35.21"/>
+</g>
+<!-- DNS -->
+<g id="node20" class="node">
+<title>DNS</title>
+<polygon fill="orange" stroke="black" points="449.04,-154.23 323.43,-154.23 323.43,-95.83 449.04,-95.83 449.04,-154.23"/>
+<text xml:space="preserve" text-anchor="middle" x="386.24" y="-137.63" font-family="Times,serif" font-size="14.00">Parse DNS</text>
+<text xml:space="preserve" text-anchor="middle" x="386.24" y="-120.83" font-family="Times,serif" font-size="14.00">parse_dns_header()</text>
+<text xml:space="preserve" text-anchor="middle" x="386.24" y="-104.03" font-family="Times,serif" font-size="14.00">Port: 53</text>
+</g>
+<!-- CHECK_UDP_PORT&#45;&gt;DNS -->
+<g id="edge20" class="edge">
+<title>CHECK_UDP_PORT-&gt;DNS</title>
+<path fill="none" stroke="black" d="M422.77,-260.41C416.62,-237.77 405.33,-196.27 396.93,-165.35"/>
+<polygon fill="black" stroke="black" points="400.37,-164.69 394.37,-155.96 393.62,-166.53 400.37,-164.69"/>
+<text xml:space="preserve" text-anchor="middle" x="420.97" y="-197.23" font-family="Times,serif" font-size="14.00">53</text>
+</g>
+<!-- UDP_PAYLOAD -->
+<g id="node21" class="node">
+<title>UDP_PAYLOAD</title>
+<path fill="none" stroke="black" d="M545.77,-145.83C545.77,-145.83 478.71,-145.83 478.71,-145.83 472.71,-145.83 466.71,-139.83 466.71,-133.83 466.71,-133.83 466.71,-116.23 466.71,-116.23 466.71,-110.23 472.71,-104.23 478.71,-104.23 478.71,-104.23 545.77,-104.23 545.77,-104.23 551.77,-104.23 557.77,-110.23 557.77,-116.23 557.77,-116.23 557.77,-133.83 557.77,-133.83 557.77,-139.83 551.77,-145.83 545.77,-145.83"/>
+<text xml:space="preserve" text-anchor="middle" x="512.24" y="-129.23" font-family="Times,serif" font-size="14.00">Display UDP</text>
+<text xml:space="preserve" text-anchor="middle" x="512.24" y="-112.43" font-family="Times,serif" font-size="14.00">Payload</text>
+</g>
+<!-- CHECK_UDP_PORT&#45;&gt;UDP_PAYLOAD -->
+<g id="edge21" class="edge">
+<title>CHECK_UDP_PORT-&gt;UDP_PAYLOAD</title>
+<path fill="none" stroke="black" d="M436.01,-261.26C449.98,-236.48 477.52,-187.62 495.39,-155.92"/>
+<polygon fill="black" stroke="black" points="498.22,-158.03 500.08,-147.6 492.12,-154.59 498.22,-158.03"/>
+<text xml:space="preserve" text-anchor="middle" x="499.13" y="-197.23" font-family="Times,serif" font-size="14.00">other</text>
+</g>
+<!-- DNS&#45;&gt;DISPLAY -->
+<g id="edge27" class="edge">
+<title>DNS-&gt;DISPLAY</title>
+<path fill="none" stroke="black" d="M405.18,-95.43C410.99,-86.66 417.48,-76.86 423.61,-67.6"/>
+<polygon fill="black" stroke="black" points="426.4,-69.73 429,-59.46 420.56,-65.86 426.4,-69.73"/>
+</g>
+<!-- UDP_PAYLOAD&#45;&gt;DISPLAY -->
+<g id="edge28" class="edge">
+<title>UDP_PAYLOAD-&gt;DISPLAY</title>
+<path fill="none" stroke="black" d="M498.66,-104.18C491.35,-93.49 482.1,-79.95 473.52,-67.39"/>
+<polygon fill="black" stroke="black" points="476.52,-65.58 467.98,-59.3 470.74,-69.53 476.52,-65.58"/>
+</g>
+</g>
+</svg>
